@@ -1127,9 +1127,6 @@ Searched for the executable 'xvfb-run' on the following path:
         # Do not use xvfb
         executable_list = [executable]
 
-    # Add --no-sandbox flag (see https://github.com/electron/electron/issues/17972)
-    executable_list += ["--no-sandbox"]
-
     # Run executable with --help and see if it's our orca
     # ---------------------------------------------------
     invalid_executable_msg = """
@@ -1145,7 +1142,7 @@ this message for details on what went wrong.
     # ### Run with Popen so we get access to stdout and stderr
     with orca_env():
         p = subprocess.Popen(
-            executable_list + ["--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            executable_list + ["--no-sandbox", "--help"], stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
 
         help_result, help_error = p.communicate()
