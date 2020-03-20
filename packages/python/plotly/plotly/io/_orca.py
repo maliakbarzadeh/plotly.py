@@ -1127,6 +1127,9 @@ Searched for the executable 'xvfb-run' on the following path:
         # Do not use xvfb
         executable_list = [executable]
 
+    # Add --no-sandbox flag (see https://github.com/electron/electron/issues/17972)
+    executable_list += ["--no-sandbox"]
+
     # Run executable with --help and see if it's our orca
     # ---------------------------------------------------
     invalid_executable_msg = """
@@ -1406,6 +1409,7 @@ Install using conda:
 
                 # Build orca command list
                 cmd_list = status._props["executable_list"] + [
+                    "--no-sandbox",
                     "serve",
                     "-p",
                     str(orca_state["port"]),
